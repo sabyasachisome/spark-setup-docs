@@ -1,0 +1,63 @@
+how to integrate sbt with scala-eclipse-ide?
+
+1. make a folder where u want to create scala project with the same "name" as "project name"
+mkdir ScalaHdpcsd
+
+2. go to that folder "ScalaHdpcsd" from cigwin and build the below 2 docs:
+
+a. build.sbt
+name:= "ScalaHdpcsd"   				//name same as project name, i.e folder name
+version:= "0.13"					//dont take 1 as spark compatible with lower version
+scalaVersion:= "2.10.6"				//dont take higher version
+
+b. make the directory chain as usual:
+src/main/scala
+
+3. In the same folder, build sbt package:
+
+sbt package			//will create empty .jar as no .scala file is present yet
+
+4. In the same folder, make eclipse compatible:
+
+sbt eclipse		//but will fail
+
+how to make it work then to integrate with eclipse?
+
+1. go to home of sbt, i.e
+cd c:/user/sabyasachi/.sbt
+
+2. verson 1.0 will be present by default, but create a version 0.13 as our build is of that version
+mkdir 0.13
+
+3. go to 0.13
+cd 0.13
+
+4. create plugins of not present
+mkdir plugins
+
+5. create plugins.sbt that will autodownload the plugins for eclipse integration
+vi plugins.sbt
+addSbtPlugin("com.typesafe.sbteclipse" % "sbteclipse-plugin" % "5.1.0")		//paster this inside the vi
+
+6. go to the project folder and eclipse plugin dependencies will be autodownloaded now by the below comand:
+sbt eclipse			//.classpth, .project, .settings will be added now for eclipse integration
+
+how to add with eclipse now?
+1. file--> import--> general-->existing project into workspace-->done
+
+2. ignore src, src/main/scala is our main source path
+
+
+
+summary:
+scala requirements:
+1. scala
+2. JDK
+3. scala eclipse IDE: to write applications
+4. sbt: to compile usind command line
+
+spark requirements:
+1. spark
+2. winutils.exe: to run spark
+
+upto "..\bin" for every items, except "scala eclipse IDE" should be added to path
